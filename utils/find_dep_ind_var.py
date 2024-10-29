@@ -2,8 +2,8 @@ def find_dep_ind_var(response):
     import re
     # Patterns for extracting relevant values
     test_pattern = r"Test:\s*([^,]+)"
-    dependent_var_pattern = r"Dependent Variable:\s*([^,]+)"
-    independent_var_pattern = r"Independent \s*(.*)"
+    dependent_var_pattern = r"Dependent Var\s*([^,]+)"
+    independent_var_pattern = r"Independent Var\s*(.*)"
 
 
     # Extract using regular expressions with case insensitivity
