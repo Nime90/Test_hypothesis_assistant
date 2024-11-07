@@ -37,3 +37,41 @@ def recommend_test(source_text, data, message):
 
     response=response.choices[0].message.content
     return response
+
+def recommend_test_nodata(source_text, message):
+    import os, random , numpy as np
+    from openai import OpenAI
+    from dotenv import load_dotenv
+    import pandas as pd
+    load_dotenv('env')
+
+    # Set a fixed random seed
+    random.seed(42)
+    np.random.seed(42)
+    #import excel file
+    all_files = os.listdir('Tests')
+    all_tests=''
+    for a in all_files:
+        all_tests+=a+', '
+
+    api_key = os.getenv('OPENAI_API_KEY')
+    # Define the prompt you want to send to the API
+    prompt=''' You are only allowed to answer the questions
+    based only on the following information: ''' + source_text +''' 
+    . After that select the recommended test from this list: '''+all_tests+'''. 
+    Finally specify the test, the dependent varible(s) and independent variable(s) in the end of the message.
+    Please provvide a complete and exaustive answer and some examples if possible'''
+
+    client = OpenAI(api_key = api_key)
+
+    response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": message}
+    ],
+    temperature=0.7 
+    )
+
+    response=response.choices[0].message.content
+    return response

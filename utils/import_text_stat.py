@@ -1,9 +1,8 @@
-def import_text_stat():
+def import_text_stat(url = 'https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/'):
     import requests
     from bs4 import BeautifulSoup
 
     # URL of the website to scrape
-    url = 'https://stats.oarc.ucla.edu/other/mult-pkg/whatstat/'
 
     # Send a GET request
     response = requests.get(url)
@@ -14,10 +13,40 @@ def import_text_stat():
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # Extract text (for example, all paragraph text)
-        paragraphs = soup.find_all('table')
-        source_text=''
-        for para in paragraphs:
-            source_text += str(para.get_text())
+        if 'spss' not in str(url):
+            paragraphs = soup.find_all('table')
+            source_text=''
+            for para in paragraphs:
+                source_text += str(para.get_text())
+        else:
+            paragraphs = soup.find_all('article')
+            source_text=''
+            for para in paragraphs:
+                source_text += str(para.get_text())
+
     else:
         print("Failed to retrieve the webpage")
     return source_text
+
+def import_text_stat_standard(url = 'https://www.itu.int/dms_pubrec/itu-r/rec/bs/R-REC-BS.1116-1-199710-S!!PDF-E.pdf'):
+    import PyPDF2
+    import requests, os
+
+    response = requests.get(url)
+
+    # Save the PDF to a local file
+    with open('sample.pdf', 'wb') as f:
+        f.write(response.content)
+    Full_text = ''
+    # Open the downloaded PDF file
+    with open('sample.pdf', 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        
+        # Extract text from the first page
+        for p in range(len(reader.pages)):
+            page = reader.pages[0]
+            text = page.extract_text()
+            Full_text = Full_text + text
+    if os.path.exists('sample.pdf'): os.remove('sample.pdf')
+
+    return Full_text
