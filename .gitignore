@@ -3,3 +3,4 @@ env
 comands.txt
 data.xlsx
 *.ipynb
+*__pycache__
