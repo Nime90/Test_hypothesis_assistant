@@ -7,7 +7,6 @@ def ChisquareGoodnessOfFit(data,column,exp_prop_0,P_value=0.05):
     exp_prop=[]
     expected_data=[]
 
-    exp_prop_0='0.1,0.1,0.1,0.7'
     observed_data=data[str(column)].value_counts().sort_index()
     o_dp='['
     for i in observed_data: o_dp=o_dp+str(round(i/sum(observed_data),2))+', '

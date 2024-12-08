@@ -1,5 +1,5 @@
 #WilcoxonMannWhitneyTtest
-def IndSamplesTtest(file_name,column1,column2,P_value,tails):
+def IndSamplesTtest_WMW(file_name,column1,column2,P_value,tails):
     import pandas as pd , numpy as np, scipy.stats as stats
     from scipy.stats import mannwhitneyu
 
@@ -23,23 +23,3 @@ def IndSamplesTtest(file_name,column1,column2,P_value,tails):
     else:
         message='\nThe mean of the variable "'+str(column1)+'" for group 1 (i.e. when "'+str(column2)+'" is equal to 1) is '+str(round(group1.mean(),2))+', which IS NOT statistically significantly different from the mean of group 2 (i.e. when "'+str(column2)+'" is equal to 0): '+str(round(group2.mean(),2))+' for a P-Value<'+str(P_value)+'.\n'
     return message
-##### input data from here ####
-x=0
-while x==0:
-    try:
-        file_name=input('Please insert here the excel file name: ')
-        column1=input('Please select the normally distributed interval dependent column you want to test: ')
-        column2=input('Please select the column containing the two independent groups you want to test: ')
-        P_value=float(input(' Please insert here your P_value: '))
-        tails=input('Please specify the number of tails to use in the analysis (select between 1 or 2): ')
-        try:
-            result=IndSamplesTtest(file_name,column1,column2,P_value,tails)
-            print(result)
-            x=1
-        except Exception as e: 
-            print(e)
-            x=0
-    except Exception as e:
-        print(e)
-        x=0
-input('\nPlease press enter to kill me!')

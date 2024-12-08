@@ -50,3 +50,19 @@ def import_text_stat_standard(url = 'https://www.itu.int/dms_pubrec/itu-r/rec/bs
     if os.path.exists('sample.pdf'): os.remove('sample.pdf')
 
     return Full_text
+
+def all_stat_page(url = 'https://stats.oarc.ucla.edu/spss/whatstat/what-statistical-analysis-should-i-usestatistical-analyses-using-spss/'):
+    import requests
+    from bs4 import BeautifulSoup
+
+    # URL of the website to scrape
+
+    # Send a GET request
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse HTML content with BeautifulSoup
+        soup = BeautifulSoup(response.text, 'html.parser')
+        all_stat = soup.get_text()
+    return all_stat

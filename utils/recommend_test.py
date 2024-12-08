@@ -9,7 +9,7 @@ def recommend_test(source_text, data, message):
     random.seed(42)
     np.random.seed(42)
     #import excel file
-    data_str=data[:10].to_string()
+    data_str=data.to_string()
     all_files = os.listdir('Tests')
     all_tests=''
     for a in all_files:

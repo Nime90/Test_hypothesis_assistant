@@ -32,24 +32,3 @@ def Chisquare(data,ind_var,dep_var,P_value=0.05):
     
     return message
 
-##### input data from here ####
-#x=0
-#while x==0:
-#    try:
-#        print('A chi-square test is used when you want to see if there is a relationship between two categorical variables.\n')
-#        file_name=input('Please insert here the excel file name: ')
-#        column=input('Please select one of the column you want to test (it must contain only 0,1 value. if this is not the case please fix the data before running this): ')
-#        column2=input('Please select the second categorical column you want to test: ')
-#        P_value=float(input('Please insert here your P_value: '))
-#        try:
-##            result=Chisquare(file_name,column,column2,P_value)
-#            print(result)
-##            x=1
-#        except Exception as e: 
-#            print(e)
-#            x=0
-#    except Exception as e:
-#        print(e)
-#        x=0
-
-#input('\nPlease press enter to kill me!')

@@ -28,6 +28,7 @@ if uploaded_file is not None:
 
             test_of_h = None
             if test_name:
+                print('Running', test_name)
                 test_of_h = run_test(data,test_name,dependent_variable,independent_variable)
 
             if test_of_h  is not None:
