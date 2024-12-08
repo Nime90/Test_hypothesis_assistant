@@ -1,9 +1,7 @@
 #PairedSamplesTtest
-def WilcoxonSignedRankSumTest(file_name,column1,column2,P_value=0.05,tails=2):
-    import pandas as pd , numpy as np, scipy.stats as stats
-    from statsmodels.stats.weightstats import ttest_ind
+def WilcoxonSignedRankSumTest(data,column1,column2,P_value=0.05,tails=2):
+    import scipy.stats as stats
 
-    data=pd.read_excel(str(file_name)+'.xlsx')
     group1=data[str(column1)]
     group2=data[str(column2)]
 

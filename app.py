@@ -22,9 +22,10 @@ if uploaded_file is not None:
         
         if response:
             test_name, dependent_variable, independent_variable = find_dep_ind_var(response)
-            st.write('The most appropriate test is: ',test_name)
-            st.write('The dependent variable is: ',dependent_variable)
-            for iv in independent_variable:  st.write('Independent variable(s): ',iv)
+            #debug script
+            #st.write('The most appropriate test is: ',test_name)
+            #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
+            #for iv in independent_variable:  st.write('Independent variable(s): ',iv)
 
             test_of_h = None
             if test_name:

@@ -1,9 +1,8 @@
 #WilcoxonMannWhitneyTtest
-def IndSamplesTtest_WMW(file_name,column1,column2,P_value,tails):
+def IndSamplesTtest_WMW(data,column1,column2,P_value,tails):
     import pandas as pd , numpy as np, scipy.stats as stats
     from scipy.stats import mannwhitneyu
 
-    data=pd.read_excel(str(file_name)+'.xlsx')
     group1=data[str(column1)][data[str(column2)] > 0].reset_index(drop=True)
     group2=data[str(column1)][data[str(column2)] == 0].reset_index(drop=True)
     

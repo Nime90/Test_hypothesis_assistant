@@ -1,5 +1,5 @@
 #McNemarTest
-def McNemarTest(data,column1,column2,P_value):
+def McNemarTest(data,column1,column2,P_value=0.05):
     from statsmodels.stats.contingency_tables import mcnemar
     import pandas as pd
 
