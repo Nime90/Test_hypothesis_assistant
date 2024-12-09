@@ -37,10 +37,11 @@ def save_log(log_info):
     print('log_correctly saved')
 
 st.title("Hypothesis Testing Assistant")
-#email = get_authenticated_user_email()
+user = st.context.headers.get('X-Streamlit-User')
+user_email = st.experimental_user.email
 st.write(st.context.headers.get('X-Streamlit-User'))
-st.write(st.experimental_user.email)
-st.write(st.context)
+if  user_email is not None:
+    st.write(user_email)
 
 #st.write(f"Greetings, {email} 👋")
 
@@ -76,7 +77,8 @@ if uploaded_file is not None:
 
                 current_datetime = datetime.now()
                 log_info = [str(current_datetime),
-                            email,
+                            user,
+                            user_email,
                             user_query,
                             response,
                             results_interpretation]
