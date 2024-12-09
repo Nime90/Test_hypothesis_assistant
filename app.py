@@ -7,28 +7,31 @@ from utils.interpret_results import interpret_results
 from utils.run_test import run_test
 from utils.find_dep_ind_var import find_dep_ind_var
 
-from streamlit.web.server.websocket_headers import _get_websocket_headers
 from datetime import datetime
 from dotenv import load_dotenv
 import toml, os, json
 load_dotenv('env')
-#config = toml.load('secrets.toml')
 
-def save_log(log_info):
-    import gspread, os
-    credentials_string= str(os.getenv("credentials_json"))
-    credentials_json = json.loads(credentials_string)
+
+def save_log(log_info, credentials_json_str):
+    import gspread
+    import json
+    # Parse the JSON string into a dictionary
+    credentials_dict = json.loads(credentials_json_str)
+    
+    # Use the dictionary to authenticate
+    gc = gspread.service_account_from_dict(credentials_dict)
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account_from_dict(credentials_json) # No need to pass credentials for public sheets
-
+    
     # Open the sheet by URL
     sheet = gc.open_by_url(sheet_url).sheet1
 
+    # Append the log info
     sheet.append_row(log_info)
     
-    print('log_correctly saved')
+    print('log correctly saved')
 
 st.title("Hypothesis Testing Assistant")
 user = st.context.headers.get('X-Streamlit-User')
@@ -74,4 +77,8 @@ if uploaded_file is not None:
                             user_query,
                             response,
                             results_interpretation]
-                save_log(log_info)
+                
+                load_dotenv('env')
+                credentials_json_str = str(os.getenv('credentials_json'))
+                save_log(log_info, credentials_json_str)
+
