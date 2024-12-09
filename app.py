@@ -21,7 +21,7 @@ def save_log(log_info):
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account(credentials_json) # No need to pass credentials for public sheets
+    gc = gspread.service_account_from_dict(credentials_json) # No need to pass credentials for public sheets
 
     # Open the sheet by URL
     sheet = gc.open_by_url(sheet_url).sheet1
