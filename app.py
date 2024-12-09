@@ -12,7 +12,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import toml
 load_dotenv('env')
-config = toml.load()
+config = toml.load('secrets.toml')
 
 def save_log(log_info):
     import gspread, os
