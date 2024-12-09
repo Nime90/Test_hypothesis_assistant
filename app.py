@@ -31,7 +31,7 @@ def save_log(log_info):
     print('log_correctly saved')
 
 st.title("Hypothesis Testing Assistant")
-st.write(os.getenv())
+st.write(os.getenv('OPENAI_API_KEY'))
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
 st.write(user )
