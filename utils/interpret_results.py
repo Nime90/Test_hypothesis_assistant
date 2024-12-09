@@ -3,7 +3,7 @@ def interpret_results(answer, data):
     from openai import OpenAI
     from dotenv import load_dotenv
     import pandas as pd
-    #load_dotenv('env')
+    load_dotenv('env')
 
     #import excel file
     data_str=data[:10].to_string()

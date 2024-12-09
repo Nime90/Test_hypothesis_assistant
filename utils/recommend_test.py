@@ -3,7 +3,7 @@ def recommend_test(source_text, data, message):
     from openai import OpenAI
     from dotenv import load_dotenv
     import pandas as pd
-    #load_dotenv('env')
+    load_dotenv('env')
 
     # Set a fixed random seed
     random.seed(42)
