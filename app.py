@@ -37,6 +37,7 @@ user_email = st.experimental_user.email
 st.write(user )
 if  user_email is not None:
     st.write(user_email)
+st.write(str(os.getenv("credentials_json")))
 
 #st.write(f"Greetings, {email} 👋")
 
