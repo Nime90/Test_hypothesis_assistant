@@ -10,13 +10,14 @@ from utils.find_dep_ind_var import find_dep_ind_var
 from streamlit.web.server.websocket_headers import _get_websocket_headers
 from datetime import datetime
 from dotenv import load_dotenv
-import toml, os
+import toml, os, json
 load_dotenv('env')
 #config = toml.load('secrets.toml')
 
 def save_log(log_info):
     import gspread, os
     credentials_json= os.getenv("credentials_json")
+    credentials_json = json.loads(credentials_json)
     #credentials_data = config["google_service_account"]
 
     # Access a public Google Sheet by its URL
@@ -31,8 +32,6 @@ def save_log(log_info):
     print('log_correctly saved')
 
 st.title("Hypothesis Testing Assistant")
-st.write(os.getenv('OPENAI_API_KEY'))
-st.write(os.getenv("credentials_json"))
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
 st.write(user )
