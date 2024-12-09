@@ -17,7 +17,8 @@ load_dotenv('env')
 def save_log(log_info):
     import gspread, os
     credentials_json= os.getenv("credentials_json")
-    #credentials_json = json.loads(credentials_json)
+    with open(credentials_json, 'r') as file:
+        credentials_json = json.load(file)
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
