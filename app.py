@@ -80,6 +80,5 @@ if uploaded_file is not None:
                 
                 load_dotenv('env')
                 credentials_json_str = str(os.getenv('credentials_json'))
-                st.write(credentials_json_str )
                 save_log(log_info, credentials_json_str)
 
