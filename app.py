@@ -30,31 +30,6 @@ def save_log(log_info):
     
     print('log_correctly saved')
 
-
-
-def save_log(log_info):
-    import gspread
-    import os
-    import json
-    credentials_json = os.getenv("credentials_json")
-    if not credentials_json:
-        raise ValueError("The credentials_json environment variable is not set or is empty.")
-
-    try:
-        credentials_dict = json.loads(credentials_json)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON format for credentials: {e}")
-
-    # Access the Google Sheet
-    sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account_from_dict(credentials_dict)
-
-    # Open the sheet by URL
-    sheet = gc.open_by_url(sheet_url).sheet1
-
-    sheet.append_row(log_info)
-    print('Log correctly saved')
-
 st.title("Hypothesis Testing Assistant")
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
