@@ -16,7 +16,7 @@ load_dotenv('env')
 
 def save_log(log_info):
     import gspread, os
-    credentials_json= os.getenv("credentials_json")
+    credentials_json= str(os.getenv("credentials_json"))
     credentials_json = json.loads(credentials_json)
     #credentials_data = config["google_service_account"]
 
