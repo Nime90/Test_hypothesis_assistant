@@ -38,8 +38,8 @@ def save_log(log_info):
 
 st.title("Hypothesis Testing Assistant")
 #email = get_authenticated_user_email()
-st.write(st.context.headers)
-st.write(st.experimental_user.email)
+st.write(st.context.headers.get('X-Streamlit-User'))
+st.write(st.experimental_user)
 #st.write(f"Greetings, {email} 👋")
 
 uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
