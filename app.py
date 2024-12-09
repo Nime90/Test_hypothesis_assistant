@@ -12,16 +12,16 @@ from datetime import datetime
 from dotenv import load_dotenv
 import toml, os
 load_dotenv('env')
-config = toml.load('secrets.toml')
+#config = toml.load('secrets.toml')
 
 def save_log(log_info):
     import gspread, os
     credentials_json= os.getenv("google_service_account")
-    credentials_data = config["google_service_account"]
+    #credentials_data = config["google_service_account"]
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account(credentials_data)  # No need to pass credentials for public sheets
+    gc = gspread.service_account(credentials_json)  # No need to pass credentials for public sheets
 
     # Open the sheet by URL
     sheet = gc.open_by_url(sheet_url).sheet1
