@@ -9,25 +9,18 @@ from utils.find_dep_ind_var import find_dep_ind_var
 
 from streamlit.web.server.websocket_headers import _get_websocket_headers
 from datetime import datetime
+from dotenv import load_dotenv
 
+load_dotenv('env')
 
-# Get the current date and time
-
-def get_authenticated_user_email() -> str:
-    """Extracts the email of the authenticated user from websocket headers."""
-    headers = _get_websocket_headers()
-    email = headers.get("X-Goog-Authenticated-User-Email")
-
-    if email:
-        return email
-    return "dev"
 
 def save_log(log_info):
-    import gspread
+    import gspread, os
+    credentials_json= os.getenv("google_service_account")
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account('credentials.json')  # No need to pass credentials for public sheets
+    gc = gspread.service_account(credentials_json)  # No need to pass credentials for public sheets
 
     # Open the sheet by URL
     sheet = gc.open_by_url(sheet_url).sheet1
@@ -39,7 +32,7 @@ def save_log(log_info):
 st.title("Hypothesis Testing Assistant")
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
-st.write(st.context.headers.get('X-Streamlit-User'))
+st.write(user )
 if  user_email is not None:
     st.write(user_email)
 
