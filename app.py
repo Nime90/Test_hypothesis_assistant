@@ -17,11 +17,11 @@ load_dotenv('env')
 def save_log(log_info):
     import gspread, os
     credentials_json= str(os.getenv("credentials_json"))
-    credentials_json = json.loads(credentials_json)
+    #credentials_json = json.loads(credentials_json)
 
     # Access a public Google Sheet by its URL
     sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    gc = gspread.service_account(credentials_json)  # No need to pass credentials for public sheets
+    gc = gspread.service_account_from_dict(credentials_json) # No need to pass credentials for public sheets
 
     # Open the sheet by URL
     sheet = gc.open_by_url(sheet_url).sheet1
@@ -58,7 +58,7 @@ def save_log(log_info):
 st.title("Hypothesis Testing Assistant")
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
-st.write(user )
+
 if  user_email is not None:
     st.write(f"Greetings, {user_email} 👋")
 
