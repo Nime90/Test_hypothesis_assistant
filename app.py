@@ -10,7 +10,7 @@ from utils.find_dep_ind_var import find_dep_ind_var
 from streamlit.web.server.websocket_headers import _get_websocket_headers
 from datetime import datetime
 from dotenv import load_dotenv
-import toml
+import toml, os
 load_dotenv('env')
 config = toml.load('secrets.toml')
 
@@ -31,6 +31,7 @@ def save_log(log_info):
     print('log_correctly saved')
 
 st.title("Hypothesis Testing Assistant")
+st.write(os.getenv())
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
 st.write(user )
