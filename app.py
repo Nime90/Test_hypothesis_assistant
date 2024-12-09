@@ -37,8 +37,9 @@ def save_log(log_info):
     print('log_correctly saved')
 
 st.title("Hypothesis Testing Assistant")
-email = get_authenticated_user_email()
-st.write(f"Greetings, {email} 👋")
+#email = get_authenticated_user_email()
+st.write(st.context.headers)
+#st.write(f"Greetings, {email} 👋")
 
 uploaded_file = st.file_uploader("Choose an Excel file", type=["xlsx", "xls"])
 
