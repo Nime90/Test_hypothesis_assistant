@@ -16,7 +16,7 @@ load_dotenv('env')
 
 def save_log(log_info):
     import gspread, os
-    credentials_json= os.getenv("google_service_account")
+    credentials_json= os.getenv("credentials_json")
     #credentials_data = config["google_service_account"]
 
     # Access a public Google Sheet by its URL
@@ -32,8 +32,7 @@ def save_log(log_info):
 
 st.title("Hypothesis Testing Assistant")
 st.write(os.getenv('OPENAI_API_KEY'))
-for key, value in os.environ.items():
-    st.write(f"{key}: {value}")
+st.write(os.getenv("credentials_json"))
 user = st.context.headers.get('X-Streamlit-User')
 user_email = st.experimental_user.email
 st.write(user )
