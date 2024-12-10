@@ -1,15 +1,5 @@
 import streamlit as st
 import pandas as pd
-import io
-import subprocess
-import sys
-
-def install_package(package):
-    try:
-        __import__(package)
-    except ImportError:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-install_package('xlsxwriter')
 
 def run():
     st.title("Welcome to the Test of Hypothesis app! :wave:")
