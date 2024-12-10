@@ -6,11 +6,8 @@ def recommend_test(source_text, data, message):
     from utils.check_cost import check_cost
     load_dotenv('env')
 
-    # Set a fixed random seed
-    random.seed(42)
-    np.random.seed(42)
     #import excel file
-    data_str=data.to_string()
+    data_str=data[:40].to_string()
     all_files = os.listdir('Tests')
     all_tests=''
     for a in all_files:
