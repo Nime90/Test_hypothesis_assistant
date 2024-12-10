@@ -28,14 +28,14 @@ def recommend_test(source_text, data, message):
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": message}
     ],
     temperature=0 
     )
-    total_cost = check_cost(response, model = "gpt-4o")
+    total_cost = check_cost(response, model = "gpt-4o-mini")
     response=response.choices[0].message.content
     return response, total_cost
 
@@ -47,9 +47,6 @@ def recommend_test_nodata(source_text, message):
     from utils.check_cost import check_cost
     load_dotenv('env')
 
-    # Set a fixed random seed
-    random.seed(42)
-    np.random.seed(42)
     #import excel file
     all_files = os.listdir('Tests')
     all_tests=''
@@ -62,20 +59,21 @@ def recommend_test_nodata(source_text, message):
     based only on the following information: ''' + source_text +''' 
     . After that select the recommended test from this list: '''+all_tests+'''. 
     Finally specify the test, the dependent varible(s) and independent variable(s) in the end of the message.
-    Please provvide a complete and exaustive answer and some examples if possible'''
+    Please provvide a complete and exaustive answer and some examples if possible, like a professor would do to students.
+    It is very important that in your answer NEVER mention SPSS. Use the provided knowledge just to provide examples.'''
 
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": message}
     ],
-    temperature=0.7 
+    temperature=0
     )
-    
-    total_cost = check_cost(response, model = "gpt-4o")
+
+    total_cost = check_cost(response, model = "gpt-4o-mini")
     response=response.choices[0].message.content
 
     return response, total_cost

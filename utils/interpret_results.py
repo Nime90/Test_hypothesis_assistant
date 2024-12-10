@@ -12,18 +12,20 @@ def interpret_results(answer, data):
     api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
     prompt=''' Please interpret the results that you will be provided with.
-     these results come from a test of hypothesis based on this dataset: '''+str(data_str)
+     these results come from a test of hypothesis based on this dataset: '''+str(data_str)+'''
+     Please be very accurate and discoursive. Imagine to be a professor explain the results to a student.'''
 
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": answer}
-    ]
+    ],
+    temperature=0
     )
-    total_cost = check_cost(response, model = "gpt-4o")
+    total_cost = check_cost(response, model = "gpt-4o-mini")
     response=response.choices[0].message.content
     
     return response, total_cost
