@@ -35,9 +35,8 @@ def recommend_test(source_text, data, message):
     ],
     temperature=0 
     )
-
-    response=response.choices[0].message.content
     total_cost = check_cost(response, model = "gpt-4o")
+    response=response.choices[0].message.content
     return response, total_cost
 
 def recommend_test_nodata(source_text, message):
@@ -75,7 +74,8 @@ def recommend_test_nodata(source_text, message):
     ],
     temperature=0.7 
     )
-
-    response=response.choices[0].message.content
+    
     total_cost = check_cost(response, model = "gpt-4o")
+    response=response.choices[0].message.content
+
     return response, total_cost
