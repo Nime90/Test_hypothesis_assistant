@@ -3,6 +3,7 @@ def recommend_test(source_text, data, message):
     from openai import OpenAI
     from dotenv import load_dotenv
     import pandas as pd
+    from utils.check_cost import check_cost
     load_dotenv('env')
 
     # Set a fixed random seed
@@ -36,13 +37,15 @@ def recommend_test(source_text, data, message):
     )
 
     response=response.choices[0].message.content
-    return response
+    total_cost = check_cost(response, model = "gpt-4o")
+    return response, total_cost
 
 def recommend_test_nodata(source_text, message):
     import os, random , numpy as np
     from openai import OpenAI
     from dotenv import load_dotenv
     import pandas as pd
+    from utils.check_cost import check_cost
     load_dotenv('env')
 
     # Set a fixed random seed
@@ -74,4 +77,5 @@ def recommend_test_nodata(source_text, message):
     )
 
     response=response.choices[0].message.content
-    return response
+    total_cost = check_cost(response, model = "gpt-4o")
+    return response, total_cost

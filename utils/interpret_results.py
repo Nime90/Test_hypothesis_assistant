@@ -3,6 +3,7 @@ def interpret_results(answer, data):
     from openai import OpenAI
     from dotenv import load_dotenv
     import pandas as pd
+    from utils.check_cost import check_cost
     load_dotenv('env')
 
     #import excel file
@@ -22,6 +23,7 @@ def interpret_results(answer, data):
         {"role": "user", "content": answer}
     ]
     )
-
+    total_cost = check_cost(response, model = "gpt-4o")
     response=response.choices[0].message.content
-    return response
+    
+    return response, total_cost

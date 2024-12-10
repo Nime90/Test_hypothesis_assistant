@@ -11,7 +11,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import toml, os, json
 load_dotenv('env')
-
+Total_cost = 0.0
 
 def save_log(log_info, credentials_json_str):
     import gspread
@@ -49,7 +49,8 @@ if uploaded_file is not None:
 
     user_query = st.chat_input("What do you want to test from this data?")
     if user_query:
-        response = recommend_test(source_text, data, user_query)
+        response, total_cost = recommend_test(source_text, data, user_query)
+        Total_cost = Total_cost + float(total_cost)
         st.write(response)
         
         if response:
@@ -66,7 +67,8 @@ if uploaded_file is not None:
 
             if test_of_h  is not None:
                 # Assuming interpret_results is also defined
-                results_interpretation = interpret_results(test_of_h , data)
+                results_interpretation, total_cost = interpret_results(test_of_h , data)
+                Total_cost = Total_cost + float(total_cost)
                 st.write("Results Interpretation:")
                 st.write(results_interpretation)
 
@@ -76,7 +78,8 @@ if uploaded_file is not None:
                             user_email,
                             user_query,
                             response,
-                            results_interpretation]
+                            results_interpretation,
+                            Total_cost]
                 
                 load_dotenv('env')
                 credentials_json_str = str(os.getenv('credentials_json'))
