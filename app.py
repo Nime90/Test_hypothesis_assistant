@@ -71,7 +71,6 @@ if uploaded_file is not None:
                 Total_cost = Total_cost + float(total_cost)
                 st.write("Results Interpretation:")
                 st.write(results_interpretation)
-                st.write('Total cost for this interaction:', Total_cost)
 
                 current_datetime = datetime.now()
                 log_info = [str(current_datetime),
