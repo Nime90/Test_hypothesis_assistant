@@ -22,22 +22,9 @@ def run():
         "This app allowes you to load your data and formulate your test of hypothesis.\n"
         "The assistant will perform the test and interpret the results for you!\n"
         "Before loading your dataset, please make sure that data is clean and ready\nfor your test (maybe ask advice to the Advisor).\n"
-        "You can use the data belowas template"
+        "You can use the file below as template: \n"
     )
-
-    file_content = pd.read_excel('Template.xlsx')
-    excel_buffer = io.BytesIO()
-    with pd.ExcelWriter(excel_buffer, engine='xlsxwriter') as writer:
-        file_content.to_excel(writer, index=False, sheet_name='Sheet1')
-        writer._save()
-    excel_buffer.seek(0)
-
-    st.download_button(
-        label="Download Template File",
-        data=excel_buffer,
-        file_name='Template.xlsx',
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+    st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
 
 if __name__ == "__main__":
     run()
