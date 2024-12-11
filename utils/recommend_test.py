@@ -24,7 +24,7 @@ def recommend_test(source_text, data, message):
     It is important to do not change the name of the test provvided in the list.
     Provide the answer as follows:\n 
     Test of hypothesys: [well formulated test of hypothesis]\n
-    Explanation: [a quick but complete explanation of the selected test]\n
+    Explanation: [Please explain what is the selected test and why it is the most appropriate]\n
     Test: [name.py], Dependent Variable: [name], Independent Variable: [name].\n'''
 
     client = OpenAI(api_key = api_key)
