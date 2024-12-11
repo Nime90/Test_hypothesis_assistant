@@ -22,7 +22,10 @@ def recommend_test(source_text, data, message):
     . After that select the recommended test from this list: '''+all_tests+'''. 
     Finally specify the test, the dependent varible and independent variable(s) in the end of the message.
     It is important to do not change the name of the test provvided in the list.
-    Provide the last as follows: Test: [name.py], Dependent Variable: [name], Independent Variable: [name]. '''
+    Provide the answer as follows: 
+    Test of hypothesys: [well formulated test of hypothesis]
+    Explanation: [a quick but complete explanation of the selected test]
+    Test: [name.py], Dependent Variable: [name], Independent Variable: [name]. '''
 
     client = OpenAI(api_key = api_key)
 
