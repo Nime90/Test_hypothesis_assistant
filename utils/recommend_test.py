@@ -15,7 +15,9 @@ def recommend_test(source_text, data, message):
 
     api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
-    prompt=''' You are only allowed to answer the questions about Test of hypotesis 
+    prompt=''' You are a professor and a student tried to formulate a test of hypothesis.
+    Firstyly evaluate the test of hypothesis formulated and if needed reformulate a proper test of hypothesis.
+    After that: You are only allowed to answer the questions about Test of hypotesis 
     based on the following information: ''' + source_text + '. Given this dataset: '+ data_str+''' 
     . After that select the recommended test from this list: '''+all_tests+'''. 
     Finally specify the test, the dependent varible and independent variable(s) in the end of the message.
@@ -52,7 +54,9 @@ def recommend_test_nodata(source_text, message):
 
     api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
-    prompt=''' You are only allowed to answer the questions
+    prompt=''' You are a professor and a student tried to formulate a test of hypothesis.
+    Firstyly evaluate the test of hypothesis formulated and if needed reformulate a proper test of hypothesis.
+    After that: You are only allowed to answer the questions
     based only on the following information: ''' + source_text +''' 
     . After that select the recommended test from this list: '''+all_tests+'''. 
     Finally specify the test, the dependent varible(s) and independent variable(s) in the end of the message.
