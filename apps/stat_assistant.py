@@ -47,45 +47,53 @@ def run() -> None:
 
     if uploaded_file is not None:
         # Read the Excel file into a DataFrame
-        data = pd.read_excel(uploaded_file)
-        source_text = import_text_stat()
+        try:
+            data = pd.read_excel(uploaded_file)
+            source_text = import_text_stat()
 
-        user_query = st.chat_input("What do you want to test from this data?")
-        if user_query:
-            response, total_cost = recommend_test(source_text, data, user_query)
-            Total_cost = Total_cost + float(total_cost)
-            st.write(response)
-            
-            if response:
-                test_name, dependent_variable, independent_variable = find_dep_ind_var(response)
-                #debug script
-                #st.write('The most appropriate test is: ',test_name)
-                #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
-                #for iv in independent_variable:  st.write('Independent variable(s): ',iv)
+            user_query = st.chat_input("What do you want to test from this data?")
+            if user_query:
+                response, total_cost = recommend_test(source_text, data, user_query)
+                Total_cost = Total_cost + float(total_cost)
+                st.write(response)
+                
+                if response:
+                    test_name, dependent_variable, independent_variable = find_dep_ind_var(response)
+                    #debug script
+                    #st.write('The most appropriate test is: ',test_name)
+                    #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
+                    #for iv in independent_variable:  st.write('Independent variable(s): ',iv)
 
-                test_of_h = None
-                if test_name:
-                    print('Running', test_name)
-                    test_of_h = run_test(data,test_name,dependent_variable,independent_variable)
+                    test_of_h = None
+                    if test_name:
+                        print('Running', test_name)
+                        test_of_h = run_test(data,test_name,dependent_variable,independent_variable)
 
-                if test_of_h  is not None:
-                    # Assuming interpret_results is also defined
-                    results_interpretation, total_cost = interpret_results(test_of_h , data)
-                    Total_cost = Total_cost + float(total_cost)
-                    st.write("Results Interpretation:")
-                    st.write(results_interpretation)
+                    if test_of_h  is not None:
+                        # Assuming interpret_results is also defined
+                        results_interpretation, total_cost = interpret_results(test_of_h , data)
+                        Total_cost = Total_cost + float(total_cost)
+                        st.write("Results Interpretation:")
+                        st.write(results_interpretation)
 
-                    current_datetime = datetime.now()
-                    log_info = [str(current_datetime),
-                                user,
-                                user_email,
-                                user_query,
-                                response,
-                                results_interpretation,
-                                str(Total_cost)]
-                    
-                    load_dotenv('env')
-                    credentials_json_str = str(os.getenv('credentials_json'))
-                    save_log(log_info, credentials_json_str)
+                        current_datetime = datetime.now()
+                        log_info = [str(current_datetime),
+                                    user,
+                                    user_email,
+                                    user_query,
+                                    response,
+                                    results_interpretation,
+                                    str(Total_cost)]
+                        
+                        load_dotenv('env')
+                        credentials_json_str = str(os.getenv('credentials_json'))
+                        save_log(log_info, credentials_json_str)
+        except:
+            st.write('It seems that something is wrong with your dataset. Please review it.\n')
+            st.write('You can ask for the help of our "test of hypothesys advisor.\n')
+            st.markdown("[Advisor (select me from the dropdown list on the left)](https://way2stat.streamlit.app/#test-of-hypothesis-advisor)")
+            st.write('Remeber: make sure to follow this template: \n')
+            st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
+    
     if __name__ == "__main__":
         run()
