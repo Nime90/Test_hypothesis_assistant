@@ -45,7 +45,7 @@ def recommend_test_nodata(source_text, message):
     import os, random , numpy as np
     from openai import OpenAI
     from dotenv import load_dotenv
-    import pandas as pd
+    import pandas as pd, json
     from utils.check_cost import check_cost
     load_dotenv('env')
 
@@ -57,14 +57,18 @@ def recommend_test_nodata(source_text, message):
 
     api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
-    prompt=''' You are a professor and a student tried to formulate a test of hypothesis.
-    Firstyly evaluate the test of hypothesis formulated and if needed reformulate a proper test of hypothesis.
+    prompt=''' You are a professor and a student has a question on a test of hypothesis.
+    Firstyly evaluate the test of hypothesis formulated (if any) and if needed, reformulate a proper test of hypothesis.
     After that: You are only allowed to answer the questions
-    based only on the following information: ''' + source_text +''' 
-    . After that select the recommended test from this list: '''+all_tests+'''. 
-    Finally specify the test, the dependent varible(s) and independent variable(s) in the end of the message.
-    Please provvide a complete and exaustive answer and some examples if possible, like a professor would do to students.
-    It is very important that in your answer NEVER mention SPSS. Use the provided knowledge just to provide examples.'''
+    based only on the following information: ''' + source_text +''' . 
+    After that select the most appropriate test from this list: '''+all_tests+'''. 
+    Finally provvide a realistic example of how to use and interpret the selected test.
+    Please provvide a complete and exaustive answer like a professor would do to students.
+    It is very important that in your answer NEVER mention SPSS. Use the provided knowledge just to provide examples.
+    Please always return the output in this format:
+    "{"response: "< insert here the generated response >"
+      "Selected Hypothesys": "<insert here the selected test of hypothesys as reported in the list (e.g. "ChiSquare.py")>"
+    }'''
 
     client = OpenAI(api_key = api_key)
 
@@ -79,5 +83,21 @@ def recommend_test_nodata(source_text, message):
 
     total_cost = check_cost(response, model = "gpt-4o-mini")
     response=response.choices[0].message.content
+    response_dic= json.loads(response)
+    with open('Tests/'+response_dic['Selected Hypothesys'], 'r') as file:
+        test_content = file.read()
+    
+    prompt_tab = ''' Given the provided function, please return arealistic example of an ideal data structure in a small tabular form. 
+    Please do not provvide an example of usage.'''
+    recommended_data_structure = client.chat.completions.create(
+    model="gpt-4o-mini", messages=[
+        {"role": "system", "content": prompt_tab},
+        {"role": "user", "content": test_content}
+    ],
+    temperature=0
+    )
+    total_cost = total_cost + float(check_cost(recommended_data_structure, model = "gpt-4o-mini"))
+    recommended_data_structure_resp=recommended_data_structure.choices[0].message.content
 
-    return response, total_cost
+    full_response = response_dic['response']+'\n \n Here is an example of the data you should use to properly run the test using the Test of Hypothesys Assistant:\n \n '+recommended_data_structure_resp
+    return full_response, total_cost
