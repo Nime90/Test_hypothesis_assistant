@@ -99,5 +99,5 @@ def recommend_test_nodata(source_text, message):
     total_cost = total_cost + float(check_cost(recommended_data_structure, model = "gpt-4o-mini"))
     recommended_data_structure_resp=recommended_data_structure.choices[0].message.content
 
-    full_response = response_dic['response']+'\n \n Here is an example of the data you should use to properly run the test using the Test of Hypothesys Assistant:\n \n '+recommended_data_structure_resp
+    full_response = response_dic['response']+'\n \n'+recommended_data_structure_resp
     return full_response, total_cost
