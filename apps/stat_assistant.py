@@ -92,7 +92,7 @@ def run() -> None:
             st.write('It seems that something is wrong with your dataset. Please review it.\n')
             st.write('You can ask for the help of our "test of hypothesys advisor.\n')
             st.markdown("[Advisor (select me from the dropdown list on the left)](https://way2stat.streamlit.app/#test-of-hypothesis-advisor)")
-            st.write('Remeber: make sure to follow this template: \n')
+            st.write('Remeber to make sure to follow this template when uploading your data: \n')
             st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
     
     if __name__ == "__main__":
