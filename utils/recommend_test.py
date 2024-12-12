@@ -88,6 +88,7 @@ def recommend_test_nodata(source_text, message):
         test_content = file.read()
     
     prompt_tab = ''' Given the provided function, please return arealistic example of an ideal data structure in a small tabular form. 
+    please write one line to introduce the table.
     Please do not provvide an example of usage.'''
     recommended_data_structure = client.chat.completions.create(
     model="gpt-4o-mini", messages=[
