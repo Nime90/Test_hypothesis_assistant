@@ -38,26 +38,30 @@ def run() -> None:
 
     user_query = st.chat_input("Ask me questions about test of hypothesis")
     if user_query is not None:
-        #source_text = import_text_stat('https://stats.oarc.ucla.edu/spss/whatstat/what-statistical-analysis-should-i-usestatistical-analyses-using-spss/')
-        source_text = all_stat_page()
-        response, total_cost  = recommend_test_nodata(source_text, user_query)
-        Total_cost = Total_cost + float(total_cost)
-        st.write(response)
+        try:
+            #source_text = import_text_stat('https://stats.oarc.ucla.edu/spss/whatstat/what-statistical-analysis-should-i-usestatistical-analyses-using-spss/')
+            source_text = all_stat_page()
+            response, total_cost  = recommend_test_nodata(source_text, user_query)
+            Total_cost = Total_cost + float(total_cost)
+            st.write(response)
 
-        #Save log of results
-        current_datetime = datetime.now()
-        results_interpretation = None
-        log_info = [str(current_datetime),
-                    user,
-                    user_email,
-                    user_query,
-                    response,
-                    results_interpretation,
-                    str(Total_cost)]
-        
-        load_dotenv('env')
-        credentials_json_str = str(os.getenv('credentials_json'))
-        save_log(log_info, credentials_json_str)
+            #Save log of results
+            current_datetime = datetime.now()
+            results_interpretation = None
+            log_info = [str(current_datetime),
+                        user,
+                        user_email,
+                        user_query,
+                        response,
+                        results_interpretation,
+                        str(Total_cost)]
+            
+            load_dotenv('env')
+            credentials_json_str = str(os.getenv('credentials_json'))
+            save_log(log_info, credentials_json_str)
+        except:
+            st.write("My apologies, but I'm not able to respond to this message.")
+            st.write("Please ask me a question about a specific test of a hypothesis or describe your data so I can give you a recommendation.")
 
     if __name__ == "__main__":
         run()
