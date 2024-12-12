@@ -5,14 +5,16 @@ def run():
     st.title("Welcome to the Test of Hypothesis app! :wave:")
     st.header(":toolbox: Our Services")
     st.subheader("Test of Hypothesis Advisor")
-    st.text("Tool that is ready to answer to all your question about hypothesis testing")
+    st.text("This tool is designed to address all queries pertaining to hypothesis testing.")
 
     st.subheader("Test of Hypothesis Assistant")
     st.text(
-        "This app allowes you to load your data and formulate your test of hypothesis.\n"
-        "The assistant will perform the test and interpret the results for you!\n"
-        "Before loading your dataset, please make sure that data is clean and ready\nfor your test (maybe ask advice to the Advisor).\n"
-        "You can use the file below as template: \n"
+        ''' The application enables the loading of data and the formulation of a test of hypothesis. \n
+        The assistant will perform the test and provide an interpretation of the results. \n
+        Prior to loading the dataset, it is essential to ensure that the data is clean and prepared for the test. \n
+        If necessary, guidance can be sought from the "Test of Hypothesis Advisor".\n 
+        The file below can be used as a template.
+        '''
     )
     st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
 
