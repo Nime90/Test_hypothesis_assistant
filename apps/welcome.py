@@ -9,12 +9,12 @@ def run():
 
     st.subheader("Test of Hypothesis Assistant")
     st.text(
-        ''' The application enables the loading of data and the formulation of a test of hypothesis. \n
-        The assistant will perform the test and provide an interpretation of the results. \n
-        Prior to loading the dataset, it is essential to ensure that the data is clean and prepared for the test. \n
-        If necessary, guidance can be sought from the "Test of Hypothesis Advisor".\n 
-        The file below can be used as a template.
-        '''
+        "This application enables the loading of data and the formulation of a test of hypothesis.\n"
+        "The assistant will perform the test and provide an interpretation of the results.\n"
+        "Prior to loading the dataset, it is essential to ensure that the data is clean and prepared for the test.\n"
+        'If necessary, guidance can be sought from the "Test of Hypothesis Advisor". \n'
+        "The file below can be used as a template.\n"
+
     )
     st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
 
