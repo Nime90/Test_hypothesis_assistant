@@ -4,3 +4,4 @@ comands.txt
 *.ipynb
 */__pycache__
 *.xlsx
+utils/fix_my_data_temp.py

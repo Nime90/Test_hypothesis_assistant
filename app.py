@@ -2,6 +2,7 @@ import streamlit as st
 from apps import (
     stat_advisor,
     stat_assistant,
+    stat_assistant_v1,
     welcome
     )
 
@@ -9,6 +10,7 @@ pages = [
     {"title": "Welcome page", "function": welcome.run},
     {"title": "Your test of hypothesis advisor", "function": stat_advisor.run},
     {"title": "Your test of hypothesis assistant", "function": stat_assistant.run},
+    {"title": "Your test of hypothesis assistant_dev", "function": stat_assistant_v1.run},
 ]
 
 st.set_page_config(page_title="Stat_Assistants", page_icon="🦾", layout="wide")
