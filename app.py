@@ -9,9 +9,9 @@ from apps import (
 
 pages = [
     {"title": "Welcome page", "function": welcome.run},
-    {"title": "Your Advisor :nerd_face:", "function": stat_advisor.run},
-    {"title": "Mr cleaner :bookmark_tabs:", "function": data_cleaner.run},
-    {"title": "Your Assistant :brain:", "function": stat_assistant.run},
+    {"title": "Your Advisor", "function": stat_advisor.run},
+    {"title": "Mr cleaner", "function": data_cleaner.run},
+    {"title": "Your Assistant", "function": stat_assistant.run},
 #    {"title": "Your test of hypothesis assistant_dev", "function": stat_assistant_v1.run},
 ]
 
