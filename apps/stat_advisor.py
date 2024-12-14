@@ -29,7 +29,7 @@ def save_log(log_info, credentials_json_str):
 
 def run() -> None:
     Total_cost = 0.0
-    st.title("Test of Hypothesis advisor")
+    st.title("Test of Hypothesis advisor :nerd_face: ")
     st.write("Ask me any question about test of hypothesis!")
     user = st.context.headers.get('X-Streamlit-User')
     user_email = st.experimental_user.email

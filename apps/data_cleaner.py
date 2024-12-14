@@ -36,7 +36,7 @@ def save_log(log_info, credentials_json_str):
 
 def run() -> None:
     Total_cost = 0.0
-    st.title("Mister cleaner")
+    st.title("Mister Cleaner :bookmark_tabs:")
     st.write("Please load here your data and your test of hypothesys and let me clean it for you! ")
     user = st.context.headers.get('X-Streamlit-User')
     user_email = st.experimental_user.email
