@@ -48,7 +48,8 @@ def run() -> None:
             #Save log of results
             current_datetime = datetime.now()
             results_interpretation = None
-            log_info = [str(current_datetime),
+            log_info = ['stat_advisor.py',
+                        str(current_datetime),
                         user,
                         user_email,
                         user_query,

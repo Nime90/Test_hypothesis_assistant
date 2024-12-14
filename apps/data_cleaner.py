@@ -6,6 +6,7 @@ from utils.recommend_test import recommend_test
 from utils.interpret_results import interpret_results
 from utils.run_test import run_test
 from utils.find_dep_ind_var import find_dep_ind_var
+from utils.fix_my_data_stable import fix_my_data_stable
 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -35,8 +36,8 @@ def save_log(log_info, credentials_json_str):
 
 def run() -> None:
     Total_cost = 0.0
-    st.title("Test of Hypothesys Assistant")
-    st.write("Please load here your data and ask me questions about it! ")
+    st.title("Mister cleaner")
+    st.write("Please load here your data and your test of hypothesys and let me clean it for you! ")
     user = st.context.headers.get('X-Streamlit-User')
     user_email = st.experimental_user.email
 
@@ -51,7 +52,7 @@ def run() -> None:
             data = pd.read_excel(uploaded_file)
             source_text = import_text_stat()
 
-            user_query = st.chat_input("What do you want to test from this data?")
+            user_query = st.chat_input("What is your hypothesys?")
             if user_query:
                 response, total_cost = recommend_test(source_text, data, user_query)
                 Total_cost = Total_cost + float(total_cost)
@@ -64,36 +65,44 @@ def run() -> None:
                     #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
                     #for iv in independent_variable:  st.write('Independent variable(s): ',iv)
 
-                    test_of_h = None
                     if test_name:
-                        print('Running', test_name)
-                        test_of_h = run_test(data,test_name,dependent_variable,independent_variable)
+                        with open('Tests/'+str(test_name), 'r') as file:
+                            test_of_hypothesys_content = file.read()
 
-                    if test_of_h  is not None:
-                        # Assuming interpret_results is also defined
-                        results_interpretation, total_cost = interpret_results(test_of_h , data)
+                        response_exp, total_cost = fix_my_data_stable(data, test_of_hypothesys_content, user_query)
                         Total_cost = Total_cost + float(total_cost)
-                        st.write("Results Interpretation:")
-                        st.write(results_interpretation)
+                        st.write(response_exp)
+
+                        from utils.fix_my_data_temp import fix_my_data_temp
+                        st.session_state.data_clean = fix_my_data_temp(data)
+                        st.write(st.session_state.data_clean)
+                    if 'data_clean' in st.session_state and st.session_state.data_clean is not None:
+                        csv = st.session_state.data_clean.to_csv(index=False).encode('utf-8')
+                        st.download_button(
+                            label="Download data_clean as CSV",
+                            data=csv,
+                            file_name="data_clean.csv",
+                            mime="text/csv"
+                            )
 
                         current_datetime = datetime.now()
-                        log_info = ['stat_assistant.py',
+                        log_info = ['data_Cleaner.py',
                                     str(current_datetime),
                                     user,
                                     user_email,
                                     user_query,
                                     response,
-                                    results_interpretation,
+                                    '',
                                     str(Total_cost)]
                         
                         load_dotenv('env')
                         credentials_json_str = str(os.getenv('credentials_json'))
                         save_log(log_info, credentials_json_str)
         except:
-            st.write('It seems that something is wrong with your dataset. Please review it.\n')
+            st.write('Sorry, I am still a beta version: I am not able to figure out how to fix your data for the hypothesys you want to test.\n')
             st.write('You can ask for the help of our "Test of hypothesys advisor.\n')
             st.markdown("[Advisor (select me from the dropdown list on the left)](https://way2stat.streamlit.app/#test-of-hypothesis-advisor)")
-            st.write('Remember to make sure to follow this template when uploading your data: \n')
+            st.write('The Advisor will help you following this template to test your hypothesis: \n')
             st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
     
     if __name__ == "__main__":

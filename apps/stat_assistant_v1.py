@@ -94,7 +94,8 @@ def run() -> None:
                     st.write(results_interpretation)
 
                     current_datetime = datetime.now()
-                    log_info = [str(current_datetime),
+                    log_info = ['Stat_assistant_v1.py',
+                                str(current_datetime),
                                 user,
                                 user_email,
                                 user_query,
