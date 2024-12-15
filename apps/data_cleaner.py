@@ -70,39 +70,39 @@ def run() -> None:
                         with open('Tests/'+str(test_name), 'r') as file:
                             test_of_hypothesys_content = file.read()
 
-                        st.write('initializing fix_my_data_stable')
                         response_exp, total_cost = fix_my_data_stable(data, test_of_hypothesys_content, user_query)
                         Total_cost = Total_cost + float(total_cost)
-                        st.write(response_exp)
-
-                        from utils.fix_my_data_temp import fix_my_data_temp
-                        st.session_state.data_clean = fix_my_data_temp(data)
-                        st.write(st.session_state.data_clean)
-                    
-                    else: st.write('Error in finding the Test_name')
-                    
-                    if 'data_clean' in st.session_state and st.session_state.data_clean is not None:
-                        csv = st.session_state.data_clean.to_csv(index=False).encode('utf-8')
-                        st.download_button(
-                            label="Download data_clean as CSV",
-                            data=csv,
-                            file_name="data_clean.csv",
-                            mime="text/csv"
-                            )
-
-                        current_datetime = datetime.now()
-                        log_info = ['data_Cleaner.py',
-                                    str(current_datetime),
-                                    user,
-                                    user_email,
-                                    user_query,
-                                    response,
-                                    '',
-                                    str(Total_cost)]
+                        if response_exp:
+                            st.write(response_exp)
                         
-                        load_dotenv('env')
-                        credentials_json_str = str(os.getenv('credentials_json'))
-                        save_log(log_info, credentials_json_str)
+                            from utils.fix_my_data_temp import fix_my_data_temp
+                            st.session_state.data_clean = fix_my_data_temp(data)
+                            st.write(st.session_state.data_clean)
+
+                            if 'data_clean' in st.session_state and st.session_state.data_clean is not None:
+                                csv = st.session_state.data_clean.to_csv(index=False).encode('utf-8')
+                                st.download_button(
+                                    label="Download data_clean as CSV",
+                                    data=csv,
+                                    file_name="data_clean.csv",
+                                    mime="text/csv"
+                                    )
+                        else : 
+                            st.write("'Sorry, I am still a beta version: I wasn't able to clean your results. Please try again.")
+
+                current_datetime = datetime.now()
+                log_info = ['data_Cleaner.py',
+                            str(current_datetime),
+                            user,
+                            user_email,
+                            user_query,
+                            response,
+                            '',
+                            str(Total_cost)]
+                
+                load_dotenv('env')
+                credentials_json_str = str(os.getenv('credentials_json'))
+                save_log(log_info, credentials_json_str)
         except:
             st.write('Sorry, I am still a beta version: I am not able to figure out how to fix your data for the hypothesys you want to test.\n')
             st.write('You can ask for the help of our "Test of hypothesys advisor.\n')

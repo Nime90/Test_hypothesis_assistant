@@ -49,7 +49,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     response=response.replace("```python",'').replace("```","")
 
     with open('utils/fix_my_data_temp.py', "w") as file:   file.write(response)
-    st.write('utils/fix_my_data_temp.py creation is completed. it costed '+ str(total_cost)+'US dollars')
+    print('utils/fix_my_data_temp.py creation is completed. it costed '+ str(total_cost)+'US dollars')
 
     prompt_expl=f''' 
             You will be provvided with a dataset and your only job is to describe what you would change 
@@ -69,5 +69,4 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     total_cost_exp = check_cost(response_exp, model = "gpt-4o-mini")
     total_cost = total_cost + float(total_cost_exp)
     response_exp=response_exp.choices[0].message.content
-    st.write('resp_esxpl_debug',response_exp)
     return response_exp, total_cost
