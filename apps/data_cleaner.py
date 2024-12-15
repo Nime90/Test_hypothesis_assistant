@@ -66,9 +66,11 @@ def run() -> None:
                     #for iv in independent_variable:  st.write('Independent variable(s): ',iv)
 
                     if test_name:
+                        st.write('openinig: ',test_name)
                         with open('Tests/'+str(test_name), 'r') as file:
                             test_of_hypothesys_content = file.read()
 
+                        st.write('initializing fix_my_data_stable')
                         response_exp, total_cost = fix_my_data_stable(data, test_of_hypothesys_content, user_query)
                         Total_cost = Total_cost + float(total_cost)
                         st.write(response_exp)
