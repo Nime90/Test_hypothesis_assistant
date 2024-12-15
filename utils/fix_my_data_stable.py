@@ -5,6 +5,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     import pandas as pd
     from utils.check_cost import check_cost
     load_dotenv('env')
+    import streamlit as st
 
     #import excel file
     data_str=data[:50].to_string()
@@ -36,7 +37,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4o-mini",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": data_str}
@@ -48,7 +49,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     response=response.replace("```python",'').replace("```","")
 
     with open('utils/fix_my_data_temp.py', "w") as file:   file.write(response)
-    print('utils/fix_my_data_temp.py creation is completed. it costed '+ str(total_cost)+'US dollars')
+    st.write('utils/fix_my_data_temp.py creation is completed. it costed '+ str(total_cost)+'US dollars')
 
     prompt_expl=f''' 
             You will be provvided with a dataset and your only job is to describe what you would change 
