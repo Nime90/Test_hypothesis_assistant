@@ -37,7 +37,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-4o",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": data_str}
@@ -47,7 +47,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     total_cost = check_cost(response, model = "gpt-4o")
     response=response.choices[0].message.content
     response=response.replace("```python",'').replace("```","")
-
+    st.write(response)
     with open('utils/fix_my_data_temp.py', "w") as file:   file.write(response)
     print('utils/fix_my_data_temp.py creation is completed. it costed '+ str(total_cost)+'US dollars')
 
