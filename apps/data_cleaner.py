@@ -78,6 +78,9 @@ def run() -> None:
                         from utils.fix_my_data_temp import fix_my_data_temp
                         st.session_state.data_clean = fix_my_data_temp(data)
                         st.write(st.session_state.data_clean)
+                    
+                    else: st.write('Error in finding the Test_name')
+                    
                     if 'data_clean' in st.session_state and st.session_state.data_clean is not None:
                         csv = st.session_state.data_clean.to_csv(index=False).encode('utf-8')
                         st.download_button(
