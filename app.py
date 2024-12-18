@@ -4,10 +4,12 @@ from apps import (
     stat_assistant,
     stat_assistant_v1,
     data_cleaner,
-    welcome
+    welcome,
+    testpage
     )
 
 pages = [
+    {"title": "test page", "function": testpage.run},
     {"title": "Welcome page", "function": welcome.run},
     {"title": "Your Advisor", "function": stat_advisor.run},
     {"title": "Mr cleaner", "function": data_cleaner.run},
