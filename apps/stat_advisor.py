@@ -15,7 +15,7 @@ def run() -> None:
     st.write("Ask me any question about test of hypothesis!")
 
     user_email = st.experimental_user.email
-    user = user_email.split('@')[0]
+    user = str(user_email).split('@')[0]
 
     if  user_email is not None:
         st.write(f"Greetings, {user_email} 👋")
