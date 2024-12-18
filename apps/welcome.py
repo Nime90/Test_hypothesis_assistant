@@ -13,7 +13,7 @@ except:
     
 
 def run():
-    st.title(f"Hi {user}! \nWelcome to the Test of Hypothesis app! :wave:")
+    st.title(f"Hi {user}! Welcome to the Test of Hypothesis app! :wave:")
     if api_key is None:
         st.write("It looks like your email is not associated to valid account. Please contact nicolamenale90@gmail.com for help.")
         st.write("in the meanwhile please read the following description of this tool")
