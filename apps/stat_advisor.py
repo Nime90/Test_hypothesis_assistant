@@ -15,11 +15,8 @@ def run() -> None:
     st.write("Ask me any question about test of hypothesis!")
     try:
         user_email = st.experimental_user.email
-        st.write(user_email)
         user = user_email.split('@')[0]
-        st.write(user)
         api_key = load_cust_api(user_email)
-        st.write(api_key)
     except:
         user_email = 'dev'
         user = 'dev'
