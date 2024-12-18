@@ -12,15 +12,13 @@ from utils.g_spread import save_log, load_cust_api
 from datetime import datetime
 from dotenv import load_dotenv
 import toml, os, json
-load_dotenv('env')
+load_dotenv('.env')
 
 
 def run() -> None:
-
     Total_cost = 0.0
     st.title("Mister Cleaner :bookmark_tabs:")
     st.write("Please load here your data and your test of hypothesys and let me clean it for you! ")
-
 
     try:
         user_email = st.experimental_user.email

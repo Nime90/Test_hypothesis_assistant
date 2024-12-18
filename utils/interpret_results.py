@@ -4,7 +4,7 @@ def interpret_results(answer, data, api_key):
     from dotenv import load_dotenv
     import pandas as pd
     from utils.check_cost import check_cost
-    load_dotenv('env')
+    load_dotenv('.env')
 
     #import excel file
     data_str=data[:10].to_string()

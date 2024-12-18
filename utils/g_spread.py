@@ -22,7 +22,7 @@ def load_cust_api(user_email):
     import gspread
     import json, os, pandas as pd
     from dotenv import load_dotenv
-    load_dotenv('env')
+    load_dotenv('.env')
     # Parse the JSON string into a dictionary
     credentials_json_str = str(os.getenv('credentials_json'))
     credentials_dict = json.loads(credentials_json_str)

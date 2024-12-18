@@ -4,7 +4,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys, api_key):
     from dotenv import load_dotenv
     import pandas as pd
     from utils.check_cost import check_cost
-    load_dotenv('env')
+    load_dotenv('.env')
     import streamlit as st
 
     #import excel file

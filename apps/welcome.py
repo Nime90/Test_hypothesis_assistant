@@ -2,15 +2,10 @@ import streamlit as st
 import pandas as pd
 from utils.g_spread import load_cust_api
 
-try:
-    user_email = st.experimental_user.email
-    user = user_email.split('@')[0]
-    api_key = load_cust_api(user_email)
-except:
-    user_email = 'dev'
-    user = 'dev'
-    api_key = None
-    
+
+user_email = st.experimental_user.email
+user = user_email.split('@')[0]
+api_key = load_cust_api(user_email)
 
 def run():
     st.title(f"Hi {user}! Welcome to the Test of Hypothesis app! :wave:")

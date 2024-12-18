@@ -4,7 +4,7 @@ def recommend_test(source_text, data, message,api_key):
     from dotenv import load_dotenv
     import pandas as pd
     from utils.check_cost import check_cost
-    load_dotenv('env')
+    load_dotenv('.env')
 
     #import excel file
     data_str=data[:40].to_string()
@@ -47,7 +47,7 @@ def recommend_test_nodata(source_text, message, api_key):
     from dotenv import load_dotenv
     import pandas as pd, json
     from utils.check_cost import check_cost
-    load_dotenv('env')
+    load_dotenv('.env')
 
     #import excel file
     all_files = os.listdir('Tests')

@@ -24,7 +24,7 @@ def find_dep_ind_var_0(text, api_key):
     from dotenv import load_dotenv
     import pandas as pd
     from utils.check_cost import check_cost
-    load_dotenv('env')
+    load_dotenv('.env')
 
     # Define the prompt you want to send to the API
     prompt=''' 
