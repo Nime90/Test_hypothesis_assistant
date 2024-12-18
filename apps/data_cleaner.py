@@ -55,9 +55,10 @@ def run() -> None:
 
                         response_exp, total_cost = fix_my_data_stable(data, test_of_hypothesys_content, user_query, api_key)
                         Total_cost = Total_cost + float(total_cost)
-                        if response_exp:
+                        if response_exp is not None:
                             st.write(response_exp)
                         
+                        try:
                             from utils.fix_my_data_temp import fix_my_data_temp
                             st.session_state.data_clean = fix_my_data_temp(data)
                             st.write(st.session_state.data_clean)
@@ -70,7 +71,7 @@ def run() -> None:
                                     file_name="data_clean.csv",
                                     mime="text/csv"
                                     )
-                        else : 
+                        except : 
                             st.write("'Sorry, I am still a beta version: I wasn't able to clean your results. Please try again.")
 
                 current_datetime = datetime.now()
