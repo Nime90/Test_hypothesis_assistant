@@ -1,4 +1,4 @@
-def recommend_test(source_text, data, message):
+def recommend_test(source_text, data, message,api_key):
     import os, random , numpy as np
     from openai import OpenAI
     from dotenv import load_dotenv
@@ -13,7 +13,7 @@ def recommend_test(source_text, data, message):
     for a in all_files:
         all_tests+=a+', '
 
-    api_key = os.getenv('OPENAI_API_KEY')
+    #api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
     prompt=''' You are a professor and a student tried to formulate a test of hypothesis.
     Firstyly evaluate the test of hypothesis formulated and if needed reformulate a proper test of hypothesis.
@@ -41,7 +41,7 @@ def recommend_test(source_text, data, message):
     response=response.choices[0].message.content
     return response, total_cost
 
-def recommend_test_nodata(source_text, message):
+def recommend_test_nodata(source_text, message, api_key):
     import os, random , numpy as np
     from openai import OpenAI
     from dotenv import load_dotenv
@@ -55,7 +55,7 @@ def recommend_test_nodata(source_text, message):
     for a in all_files:
         all_tests+=a+', '
 
-    api_key = os.getenv('OPENAI_API_KEY')
+    #api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
     prompt=''' You are a professor and a student has a question on a test of hypothesis.
     Firstyly evaluate the test of hypothesis formulated (if any) and if needed, reformulate a proper test of hypothesis.

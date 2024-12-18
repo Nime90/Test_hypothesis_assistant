@@ -1,8 +1,23 @@
 import streamlit as st
 import pandas as pd
+from utils.g_spread import load_cust_api
+
+try:
+    user_email = st.experimental_user.email
+    user = user_email.split('@')[0]
+    api_key = load_cust_api(user_email)
+except:
+    user_email = 'dev'
+    user = 'dev'
+    api_key = None
+    
 
 def run():
-    st.title("Welcome to the Test of Hypothesis app! :wave:")
+    st.title(f"Welcome {user} to the Test of Hypothesis app! :wave:")
+    if api_key is None:
+        st.write("It looks like your email is not associated to valid account. Please contact nicolamenale90@gmail.com for help.")
+        st.write("in the meanwhile please read the following description of this tool")
+    
     st.header(":bar_chart: Please follow these steps to ensure good quality for your test of Hypothesis!")
 
     st.subheader("1. Test of Hypothesis Advisor :nerd_face:")

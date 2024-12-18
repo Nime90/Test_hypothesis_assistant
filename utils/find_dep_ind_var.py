@@ -18,7 +18,7 @@ def find_dep_ind_var(response):
     independent_variable = independent_var.group(1).strip().split(':')[1].strip().replace(',','').replace('.','').split(' ') if independent_var else None
     return test_name, dependent_variable, independent_variable
 
-def find_dep_ind_var_0(text):
+def find_dep_ind_var_0(text, api_key):
     import os, json
     from openai import OpenAI
     from dotenv import load_dotenv
@@ -26,7 +26,6 @@ def find_dep_ind_var_0(text):
     from utils.check_cost import check_cost
     load_dotenv('env')
 
-    api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
     prompt=''' 
     Given the provvided text, please identify:

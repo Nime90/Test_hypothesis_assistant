@@ -7,6 +7,7 @@ from utils.interpret_results import interpret_results
 from utils.run_test import run_test
 from utils.find_dep_ind_var import find_dep_ind_var, find_dep_ind_var_0
 from utils.fix_my_data_stable import fix_my_data_stable
+from utils.g_spread import save_log, load_cust_api
 
 from datetime import datetime
 from dotenv import load_dotenv
@@ -14,32 +15,16 @@ import toml, os, json
 load_dotenv('env')
 
 
-def save_log(log_info, credentials_json_str):
-    import gspread
-    import json
-    # Parse the JSON string into a dictionary
-    credentials_dict = json.loads(credentials_json_str)
-    
-    # Use the dictionary to authenticate
-    gc = gspread.service_account_from_dict(credentials_dict)
-
-    # Access a public Google Sheet by its URL
-    sheet_url = "https://docs.google.com/spreadsheets/d/18aGkib26C8U7tiFZ86rMru9ZT65GaaNr0m9cIt3nk9Y/edit#gid=0"
-    
-    # Open the sheet by URL
-    sheet = gc.open_by_url(sheet_url).sheet1
-
-    # Append the log info
-    sheet.append_row(log_info)
-    
-    print('log correctly saved')
-
 def run() -> None:
     Total_cost = 0.0
     st.title("Test of Hypothesys Assistant")
     st.write("Please load here your data and ask me questions about it! ")
-    user = st.context.headers.get('X-Streamlit-User')
-    user_email = st.experimental_user.email
+    try:
+        user_email = st.experimental_user.email
+        user = user_email.split('@')[0]
+    except:
+        user_email = 'dev'
+        user = 'dev'
 
     if  user_email is not None:
         st.write(f"Greetings, {user_email} 👋")
@@ -101,7 +86,7 @@ def run() -> None:
                                 user_query,
                                 response,
                                 results_interpretation,
-                                str(Total_cost)]
+                                str(Total_cost).replace('.',',')]
                     
                     load_dotenv('env')
                     credentials_json_str = str(os.getenv('credentials_json'))

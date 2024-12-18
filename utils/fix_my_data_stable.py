@@ -1,4 +1,4 @@
-def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
+def fix_my_data_stable(data,test_of_hypothesys, hypothesys, api_key):
     import os
     from openai import OpenAI
     from dotenv import load_dotenv
@@ -10,7 +10,7 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys):
     #import excel file
     data_str=data[:50].to_string()
 
-    api_key = os.getenv('OPENAI_API_KEY')
+    #api_key = os.getenv('OPENAI_API_KEY')
     # Define the prompt you want to send to the API
     prompt=f''' 
             You will be provvided with a dataset and your only job is to build a python file that 
