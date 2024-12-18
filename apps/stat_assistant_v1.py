@@ -12,7 +12,7 @@ from utils.g_spread import save_log, load_cust_api
 from datetime import datetime
 from dotenv import load_dotenv
 import toml, os, json
-load_dotenv('env')
+load_dotenv('.env')
 
 
 def run() -> None:
