@@ -19,12 +19,10 @@ def run() -> None:
     Total_cost = 0.0
     st.title("Test of Hypothesys Assistant")
     st.write("Please load here your data and ask me questions about it! ")
-    try:
-        user_email = st.experimental_user.email
-        user = user_email.split('@')[0]
-    except:
-        user_email = 'dev'
-        user = 'dev'
+
+    user_email = st.experimental_user.email
+    user = user_email.split('@')[0]
+
 
     if  user_email is not None:
         st.write(f"Greetings, {user_email} 👋")
