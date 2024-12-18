@@ -14,8 +14,8 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys, api_key):
     # Define the prompt you want to send to the API
     prompt=f''' 
             You will be provvided with a dataset and your only job is to build a python file that 
-            restructure the data in the dataset to make them work in this test: {test_of_hypothesys}.
-            The objective of this test is to fulfill this hypothesis:  {hypothesys}.
+            clean the data in the dataset to make it work in this function: {test_of_hypothesys}.
+            The objective of this function is to fulfill this hypothesis:  {hypothesys}.
             Given thi hypothesis, please identify the dependent and independent variables in the provvided data.
             Make sure to name the columns with the same names of the independent and dependent variables in the fixed data.
             Make sure that the function ALWAYS return a dataframe (pandas)
@@ -37,14 +37,14 @@ def fix_my_data_stable(data,test_of_hypothesys, hypothesys, api_key):
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4-turbo",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": data_str}
     ],
     temperature=0
     )
-    total_cost = check_cost(response, model = "gpt-4o")
+    total_cost = check_cost(response, model = "gpt-4-turbo")
     response=response.choices[0].message.content
     response=response.replace("```python",'').replace("```","")
     st.write(response)
