@@ -19,12 +19,12 @@ def save_log(log_info, credentials_json_str):
     print('log correctly saved')
 
 def load_cust_api(user_email):
-    import gspread
+    import gspread, streamlit as st
     import json, os, pandas as pd
     from dotenv import load_dotenv
     load_dotenv('.env')
     # Parse the JSON string into a dictionary
-    credentials_json_str = str(os.getenv('credentials_json'))
+    credentials_json_str = str(os.getenv('credentials_json')).replace('\n','\\n')
     credentials_dict = json.loads(credentials_json_str)
 
     # Use the dictionary to authenticate

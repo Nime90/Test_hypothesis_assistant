@@ -10,7 +10,7 @@ from utils.g_spread import save_log, load_cust_api
 from datetime import datetime
 from dotenv import load_dotenv
 import toml, os, json
-load_dotenv('.env')
+
 
 
 def run() -> None:
@@ -69,7 +69,7 @@ def run() -> None:
                                     results_interpretation,
                                     str(Total_cost).replace('.',',')]
                         
-                        load_dotenv('env')
+                        load_dotenv('.env')
                         credentials_json_str = str(os.getenv('credentials_json'))
                         save_log(log_info, credentials_json_str)
         except:
