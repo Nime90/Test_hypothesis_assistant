@@ -18,26 +18,26 @@ def recommend_test(source_text, data, message,api_key):
     prompt=''' You are a professor and a student tried to formulate a test of hypothesis.
     Firstyly evaluate the test of hypothesis formulated and if needed reformulate a proper test of hypothesis.
     After that: You are only allowed to answer the questions about Test of hypotesis 
-    based on the following information: ''' + source_text + '. Given this dataset: '+ data_str+''' 
-    . After that select the recommended test from this list: '''+all_tests+'''. 
+    based on the following information: ''' + source_text + '. Given this dataset: '+ data_str+'''. 
+    After that select the recommended test from this list: ['''+all_tests+''']. 
     Finally specify the test, the dependent varible and independent variable(s) in the end of the message.
     It is important to do not change the name of the test provvided in the list.
     Provide the answer as follows:\n 
     Test of hypothesys: [well formulated test of hypothesis]\n
     Explanation: [Please explain what is the selected test and why it is the most appropriate]\n
-    Test: [name.py], Dependent Variable: [name], Independent Variable: [name].\n'''
+    Test: [name.py], Subject Column Name: [name], Dependent Variable: [name], Independent Variable: [name].\n'''
 
     client = OpenAI(api_key = api_key)
 
     response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-4o",
     messages=[
         {"role": "system", "content": prompt},
         {"role": "user", "content": message}
     ],
     temperature=0 
     )
-    total_cost = check_cost(response, model = "gpt-4o-mini")
+    total_cost = check_cost(response, model = "gpt-4o")
     response=response.choices[0].message.content
     return response, total_cost
 

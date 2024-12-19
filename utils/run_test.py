@@ -1,4 +1,4 @@
-def run_test(data,test_name,dependent_variable,independent_variable):
+def run_test(data,test_name,dependent_variable,independent_variable, subject_col = None):
     test_of_h = None
 
     if 'TwoIndependentSampleTtest.py' in str(test_name) and dependent_variable and independent_variable:
@@ -49,10 +49,10 @@ def run_test(data,test_name,dependent_variable,independent_variable):
         from Tests.MultivariateMultipleregression import MultivariateMultipleregression
         test_of_h = MultivariateMultipleregression(data, dependent_variable, independent_variable)
     
-    #investigate on this test
-    #elif 'OneWayRepeatedMeasuresAnova.py' in str(test_name) and dependent_variable and independent_variable:
-    #    from Tests.OneWayRepeatedMeasuresAnova import OneWayRepeatedMeasuresANOVA
-    #    test_of_h = OneWayRepeatedMeasuresANOVA()
+
+    elif 'OneWayRepeatedMeasuresAnova.py' in str(test_name) and dependent_variable and independent_variable:
+        from Tests.OneWayRepeatedMeasuresAnova import OneWayRepeatedMeasuresANOVA
+        test_of_h = OneWayRepeatedMeasuresANOVA(data, subject_col[0],independent_variable[0], dependent_variable[0])
     
     elif 'NonParametricCorrelation.py' in str(test_name) and dependent_variable and independent_variable:
         from Tests.NonParametricCorrelation import NonParametricCorrelation

@@ -8,7 +8,7 @@ def run():
     from dotenv import load_dotenv
     load_dotenv('.env')
     # Parse the JSON string into a dictionary
-    credentials_json_str = str(os.getenv('credentials_json'))
+    credentials_json_str = str(os.getenv('credentials_json')).replace('\n','\\n')
     st.write(credentials_json_str )
     credentials_dict = json.loads(credentials_json_str)
     st.write(credentials_dict)

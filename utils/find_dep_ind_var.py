@@ -4,6 +4,7 @@ def find_dep_ind_var(response):
     test_pattern = r"Test:\s*([^,]+)"
     dependent_var_pattern = r"Dependent Var\s*(.*)"
     independent_var_pattern = r"Independent Var\s*(.*)"
+    subject_column_pattern = r"Subject Column Name*(.*)"
 
 
     # Extract using regular expressions with case insensitivity
@@ -11,12 +12,14 @@ def find_dep_ind_var(response):
     test = re.search(test_pattern, response_final, re.IGNORECASE)
     dependent_var = re.search(dependent_var_pattern, response_final, re.IGNORECASE)
     independent_var = re.search(independent_var_pattern, response_final, re.IGNORECASE)
+    subject_var = re.search(subject_column_pattern, response_final, re.IGNORECASE)
 
     # Store values in variables if they are found
     test_name = test.group(1).strip() if test else None
     dependent_variable   =   dependent_var.group(1).strip().split(':')[1].strip().replace(',','').replace('.','').split(' ') if dependent_var else None
     independent_variable = independent_var.group(1).strip().split(':')[1].strip().replace(',','').replace('.','').split(' ') if independent_var else None
-    return test_name, dependent_variable, independent_variable
+    subject_var = subject_var.group(1).strip().split(':')[1].strip().replace(',','').replace('.','').split(' ') if subject_var  else None
+    return test_name, dependent_variable, independent_variable, subject_var
 
 def find_dep_ind_var_0(text, api_key):
     import os, json

@@ -42,7 +42,7 @@ def run() -> None:
                         str(Total_cost).replace('.',',')]
             
             load_dotenv('env')
-            credentials_json_str = str(os.getenv('credentials_json'))
+            credentials_json_str = str(os.getenv('credentials_json')).replace('\n','\\n')
             save_log(log_info, credentials_json_str)
         except:
             st.write("My apologies, but I'm not able to respond to this message.")

@@ -1,4 +1,3 @@
-#NOT WORKING: IT STOPS WHEN SELECTING THE TEST
 import streamlit as st
 import pandas as pd
 from utils.import_text_stat import import_text_stat
@@ -15,6 +14,9 @@ import toml, os, json
 
 def run() -> None:
     Total_cost = 0.0
+    response = None
+    results_interpretation = None
+
     st.title("Test of Hypothesys Assistant :brain: ")
     st.write("Please load here your data and ask me questions about it! ")
 
@@ -41,7 +43,7 @@ def run() -> None:
                 st.write(response)
                 
                 if response:
-                    test_name, dependent_variable, independent_variable = find_dep_ind_var(response)
+                    test_name, dependent_variable, independent_variable,subject_varaible = find_dep_ind_var(response)
                     #debug script
                     #st.write('The most appropriate test is: ',test_name)
                     #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
@@ -50,7 +52,7 @@ def run() -> None:
                     test_of_h = None
                     if test_name:
                         print('Running', test_name)
-                        test_of_h = run_test(data,test_name,dependent_variable,independent_variable)
+                        test_of_h = run_test(data,test_name,dependent_variable,independent_variable,subject_varaible)
 
                     if test_of_h  is not None:
                         # Assuming interpret_results is also defined
@@ -58,26 +60,27 @@ def run() -> None:
                         Total_cost = Total_cost + float(total_cost)
                         st.write("Results Interpretation:")
                         st.write(results_interpretation)
-
-                        current_datetime = datetime.now()
-                        log_info = ['stat_assistant.py',
-                                    str(current_datetime),
-                                    user,
-                                    user_email,
-                                    user_query,
-                                    response,
-                                    results_interpretation,
-                                    str(Total_cost).replace('.',',')]
-                        
-                        load_dotenv('.env')
-                        credentials_json_str = str(os.getenv('credentials_json'))
-                        save_log(log_info, credentials_json_str)
         except:
             st.write('It seems that something is wrong with your dataset. Please review it.\n')
             st.write('You can ask for the help of our "Test of hypothesys advisor.\n')
             st.markdown("[Advisor (select me from the dropdown list on the left)](https://way2stat.streamlit.app/#test-of-hypothesis-advisor)")
             st.write('Remember to make sure to follow this template when uploading your data: \n')
             st.markdown("[Template](https://docs.google.com/spreadsheets/d/11FLvCX_dw0jsNJG7wBGPLAleQBrZJHV4/edit?usp=sharing&ouid=100261840869406723359&rtpof=true&sd=true)")
+        
+        if response is not None and results_interpretation is not None:
+            current_datetime = datetime.now()
+            log_info = ['stat_assistant.py',
+                        str(current_datetime),
+                        user,
+                        user_email,
+                        user_query,
+                        response,
+                        results_interpretation,
+                        str(Total_cost).replace('.',',')]
+            
+            load_dotenv('.env')
+            credentials_json_str = str(os.getenv('credentials_json')).replace('\n','\\n')
+            save_log(log_info, credentials_json_str)
     
     if __name__ == "__main__":
         run()

@@ -42,7 +42,7 @@ def run() -> None:
                 st.write(response)
                 
                 if response:
-                    test_name, dependent_variable, independent_variable = find_dep_ind_var(response)
+                    test_name, dependent_variable, independent_variable,subject_varaible = find_dep_ind_var(response)
                     #debug script
                     #st.write('The most appropriate test is: ',test_name)
                     #for dv in dependent_variable:    st.write('Dependent variable(s)  : ',dv)
@@ -85,7 +85,7 @@ def run() -> None:
                             str(Total_cost).replace('.',',')]
                 
                 load_dotenv('env')
-                credentials_json_str = str(os.getenv('credentials_json'))
+                credentials_json_str = str(os.getenv('credentials_json')).replace('\n','\\n')
                 save_log(log_info, credentials_json_str)
         except:
             st.write('Sorry, I am still a beta version: I am not able to figure out how to fix your data for the hypothesys you want to test.\n')
