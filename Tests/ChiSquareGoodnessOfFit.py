@@ -1,29 +1,43 @@
 #ChisquareGoodnessOfFit
-def ChisquareGoodnessOfFit(data,column,exp_prop_0,P_value=0.05):
-    import scipy.stats as stats
+def ChisquareGoodnessOfFit(data, dependent_variable):
     import numpy as np
-    import pandas as pd
-    tails=1
-    exp_prop=[]
-    expected_data=[]
+    from collections import Counter
+    from scipy.stats import chi2
 
-    observed_data=data[str(column)].value_counts().sort_index()
-    o_dp='['
-    for i in observed_data: o_dp=o_dp+str(round(i/sum(observed_data),2))+', '
-    o_dp=o_dp+']'
-    o_dp=o_dp.replace(', ]',']')
-    o_d='['
-    for o in observed_data:o_d=o_d+str(o)+', '
-    o_d=o_d+']'
-    o_d=o_d.replace(', ]',']')
-    for i in exp_prop_0.split(','): exp_prop.append(float(i))
-    for i in exp_prop: expected_data.append(int(len(data[str(column)])*float(i)))
+    #find the observed variables
+    responses = [i for i in data[str(dependent_variable)]]
+    # Define the categories
+    categories = data[str(dependent_variable)].unique()
+    # Compute the observed frequencies using Counter
+    observed_counts = Counter(responses)
+    # Ensure the observed frequencies are in the same order as the categories
+    observed = [observed_counts[color] for color in categories]
+    # Assume an equal distribution (uniform expectation)
+    total_responses = len(responses)
+    num_categories = len(categories)
+    expected = [total_responses / num_categories] * num_categories
+    
+    # Ensure the inputs are numpy arrays
+    observed = np.array(observed)
+    expected = np.array(expected)
 
-    chi_square_test_statistic, p_value = stats.chisquare(observed_data, expected_data)
-    message = '\nWe are now checking whether the observed proportions for '+str(column)+': '+str(o_dp)+' differ from hypothesized proportions: ['+str(exp_prop_0)+'].\n'+'The observed numbers are: '+str(o_d)+'\n'+'The expected numbers are: '+str(expected_data)
-    message = message + '\nIn this case the  p-value is: '+str(round(float(p_value),3)*int(tails))+'.\n' + 'chi_square_test_statistic is : ' + str(round(chi_square_test_statistic,3))+'.\n' + 'Chi-square critical value is: '+str(round((stats.chi2.ppf(1-0.05, df=6)),3))
-    if round(float(p_value),3)*int(tails) < P_value: 
-        message = message + 'These results show that the composition in our sample for '+str(column)+' differ significantly from the hypothesized values that we supplied.\n'
-    else: 
-        message = message + '\nThese results show that the composition in our sample for '+str(column)+' DOES NOT differ significantly from the hypothesized values that we supplied.\n'
+    # Check if lengths match
+    if len(observed) != len(expected):
+        raise ValueError("Observed and expected frequencies must be the same length")
+
+    # Compute the chi-square statistic
+    chi2_stat = np.sum((observed - expected) ** 2 / expected)
+
+    # Degrees of freedom: number of categories - 1
+    dof = len(observed) - 1
+
+    # Compute the p-value
+    p_value = 1 - chi2.cdf(chi2_stat, dof)
+
+    message = str('These are the results for the chisquared goodness of fit:\n',
+                  'Chi-square Statistic: '+str(chi2_stat)+'\n',
+                  'Chi-square p_value: '+str(p_value)+'\n', 
+                  'Degree of freedom:'+str(dof)
+                )
     return message
+
