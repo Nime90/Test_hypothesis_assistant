@@ -9,7 +9,7 @@ from apps import (
     )
 
 pages = [
-#    {"title": "test page", "function": testpage.run},
+    {"title": "test page", "function": testpage.run},
     {"title": "Welcome page", "function": welcome.run},
     {"title": "Your Advisor", "function": stat_advisor.run},
     {"title": "Mr cleaner", "function": data_cleaner.run},
